@@ -1,2 +1,6 @@
 # Gamerzone_9A
-gamer  zone
+Cég neve: BMA
+Választott téma: Gamer Zone
+Vezető fejlesztő: Arnóczki Áron
+Dizájner: Fodor Bence
+Tartalomfelelős: Kis Máté
