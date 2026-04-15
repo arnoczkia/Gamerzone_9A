@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>CS2 Guide – Utility</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Inter", "Helvetica Neue", Arial, sans-serif; }
+
+        body { background: #f4f4f4; color: #111; min-height: 100vh; }
+        body.dark-mode { background: #0e0e11; color: #f4f4f4; }
+
+        /* HEADER */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 18px 50px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        body.dark-mode header { background: #121217; border-color: #222; }
+
+        .back-btn {
+            background: none;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 7px 16px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #111;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+        .back-btn:hover { background: #f0f0f0; }
+        body.dark-mode .back-btn { border-color: #333; color: #eee; }
+        body.dark-mode .back-btn:hover { background: #1e1e28; }
+
+        .header-title { font-size: 15px; font-weight: 700; letter-spacing: 1.5px; color: #111; }
+        body.dark-mode .header-title { color: #fff; }
+
+        .header-map-badge {
+            margin-left: auto;
+            background: #111;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 999px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        body.dark-mode .header-map-badge { background: #2f80ff; }
+
+        #themeToggleUtil {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #themeToggleUtil:hover { background: rgba(0,0,0,0.08); }
+        body.dark-mode #themeToggleUtil:hover { background: rgba(255,255,255,0.1); }
+
+        /* HERO */
+        .map-hero {
+            width: 100%;
+            height: 320px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+        .map-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+        }
+        .map-hero-text {
+            position: relative;
+            padding: 36px 50px;
+            color: #fff;
+        }
+        .map-hero-text h1 { font-size: 42px; font-weight: 800; text-shadow: 0 4px 14px rgba(0,0,0,0.8); }
+        .map-hero-text p { font-size: 15px; color: #ddd; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
+
+        /* TABS */
+        .tabs {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0 50px;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+        }
+        body.dark-mode .tabs { background: #121217; border-color: #222; }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 16px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #666;
+            white-space: nowrap;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .tab-btn:hover { color: #111; }
+        .tab-btn.active { color: #111; border-bottom-color: #111; }
+        body.dark-mode .tab-btn { color: #888; }
+        body.dark-mode .tab-btn:hover { color: #fff; }
+        body.dark-mode .tab-btn.active { color: #fff; border-bottom-color: #2f80ff; }
+
+        /* CONTENT */
+        main { max-width: 1200px; margin: auto; padding: 60px 50px; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .section-sub {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+        body.dark-mode .section-sub { color: #aaa; }
+
+        /* UTILITY GRID */
+        .utility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        /* UTILITY CARD */
+        .util-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: transform 0.25s, box-shadow 0.25s;
+            cursor: pointer;
+        }
+        .util-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+        }
+        body.dark-mode .util-card {
+            background: #1a1a22;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .util-card-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #222;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .util-card-thumb iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+        .util-card-thumb-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a22;
+            color: #555;
+            font-size: 13px;
+        }
+        body.dark-mode .util-card-thumb-placeholder { background: #111; }
+
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .util-card:hover .play-overlay { opacity: 1; }
+        .play-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(47,128,255,0.92);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .util-card-body { padding: 18px 20px; }
+        .util-card-tag {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #2f80ff;
+            margin-bottom: 6px;
+        }
+        .util-card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+        .util-card-desc { font-size: 13px; color: #666; line-height: 1.5; }
+        body.dark-mode .util-card-desc { color: #aaa; }
+
+        /* VIDEO MODAL */
+        .video-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-modal.active { display: flex; }
+        .video-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.88);
+            backdrop-filter: blur(6px);
+        }
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 960px;
+            aspect-ratio: 16/9;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+            z-index: 1;
+        }
+        .video-modal-content iframe { width: 100%; height: 100%; display: block; border: none; }
+        .close-video {
+            position: absolute;
+            top: -44px;
+            right: 0;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #fff;
+            font-size: 18px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .close-video:hover { background: rgba(255,255,255,0.3); }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #888;
+        }
+        .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+        .empty-state p { font-size: 15px; }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 60px; font-size: 12px; color: #666; font-weight: 600; }
+        body.dark-mode footer { color: #777; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header { padding: 14px 20px; }
+            .map-hero { height: 220px; }
+            .map-hero-text { padding: 24px 20px; }
+            .map-hero-text h1 { font-size: 28px; }
+            .tabs { padding: 0 20px; }
+            main { padding: 40px 20px; }
+            .utility-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a class="back-btn" href="javascript:history.back()">← Vissza</a>
+    <span class="header-title">CS2 GUIDE</span>
+    <span class="header-map-badge" id="mapBadge">MAP</span>
+    <button id="themeToggleUtil" aria-label="Dark mode">🌙</button>
+</header>
+
+<div class="map-hero" id="mapHero">
+    <div class="map-hero-overlay"></div>
+    <div class="map-hero-text">
+        <h1 id="mapTitle">Map Utility</h1>
+        <p id="mapSub">Smoke-ok, flash-ek, molotovok és grenadek</p>
+    </div>
+</div>
+
+<div class="tabs" id="tabsBar">
+    <button class="tab-btn active" data-tab="smokes">💨 Smoke-ok</button>
+    <button class="tab-btn" data-tab="flashes">⚡ Flash-ek</button>
+    <button class="tab-btn" data-tab="molotovs">🔥 Molotovok</button>
+    <button class="tab-btn" data-tab="grenades">💣 Grenadek</button>
+</div>
+
+<main>
+    <div class="tab-content active" id="tab-smokes">
+        <h2 class="section-title">Smoke lineupok</h2>
+        <p class="section-sub">Kattints egy kártyára a videó megtekintéséhez</p>
+        <div class="utility-grid" id="grid-smokes"></div>
+    </div>
+    <div class="tab-content" id="tab-flashes">
+        <h2 class="section-title">Flash-ek</h2>
+        <p class="section-sub">Pop-flash-ek és team flash-ek</p>
+        <div class="utility-grid" id="grid-flashes"></div>
+    </div>
+    <div class="tab-content" id="tab-molotovs">
+        <h2 class="section-title">Molotov / Incendiary</h2>
+        <p class="section-sub">Site control és clearance molotovok</p>
+        <div class="utility-grid" id="grid-molotovs"></div>
+    </div>
+    <div class="tab-content" id="tab-grenades">
+        <h2 class="section-title">HE Grenadek</h2>
+        <p class="section-sub">Damage grenadek és fake execute-ok</p>
+        <div class="utility-grid" id="grid-grenades"></div>
+    </div>
+</main>
+
+<div id="videoModal" class="video-modal">
+    <div class="video-modal-backdrop" id="modalBackdrop"></div>
+    <div class="video-modal-content">
+        <button class="close-video" id="closeVideo">✕</button>
+        <iframe id="videoFrame" src="" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
+</div>
+
+<footer>CS2 Competitive Guide</footer>
+
+<script>
+/* ===== MAP DATA ===== */
+const mapData = {
+    anubis: {
+        name: "Anubis",
+        img: "images/anubis.jpg",
+        smokes: [
+            { title: "A site – CT smoke", desc: "CT-t blokkoló smoke az A site-ra való beépítéshez.", tag: "A Site", videoId: "" },
+            { title: "A site – Colosseum smoke", desc: "Colosseum angle-t lefedő smoke.", tag: "A Site", videoId: "" },
+            { title: "B site – Palace smoke", desc: "Palace-ből jövő CT-t blokkolja.", tag: "B Site", videoId: "" },
+            { title: "Mid – Water smoke", desc: "Watert blokkoló közép kontroll smoke.", tag: "Mid", videoId: "" }
+        ],
+        flashes: [
+            { title: "A site – Pop-flash", desc: "Azonnali pop-flash az A main-ből.", tag: "A Site", videoId: "" },
+            { title: "B site – Team flash", desc: "Csapat flash a B-re való beépítéshez.", tag: "B Site", videoId: "" }
+        ],
+        molotovs: [
+            { title: "A site – Back molotov", desc: "A site hátsó részét tisztítja.", tag: "A Site", videoId: "" },
+            { title: "B site – Heaven molotov", desc: "Heaven angle-t zárja le.", tag: "B Site", videoId: "" }
+        ],
+        grenades: [
+            { title: "A ramp – HE grenade", desc: "A rámpán lévő ellenfeleknek.", tag: "A Site", videoId: "" }
+        ]
+    },
+    ancient: {
+        name: "Ancient",
+        img: "images/ancient.jpg",
+        smokes: [
+            { title: "A site – CT smoke", desc: "CT-t blokkoló smoke az A site-ra.", tag: "A Site", videoId: "" },
+            { title: "A site – Temple smoke", desc: "Temple angle-t fedi le.", tag: "A Site", videoId: "" },
+            { title: "B site – Door smoke", desc: "B door-t blokkoló smoke.", tag: "B Site", videoId: "" },
+            { title: "Mid – Cave smoke", desc: "Cave-t blokkolja a mid kontrollhoz.", tag: "Mid", videoId: "" }
+        ],
+        flashes: [
+            { title: "A main – Pop-flash", desc: "A main-en áttörő pop-flash.", tag: "A Site", videoId: "" },
+            { title: "B – Team flash", desc: "B site-ra való beépítés csapat flash.", tag: "B Site", videoId: "" }
+        ],
+        molotovs: [
+            { title: "A site – Corner molotov", desc: "Sarok clearance az A site-on.", tag: "A Site", videoId: "" }
+        ],
+        grenades: [
+            { title: "Mid – HE grenade", desc: "Mid choke-on lévő ellenfeleknek.", tag: "Mid", videoId: "" }
+        ]
+    },
+    mirage: {
+        name: "Mirage",
+        img: "images/mirage.jpg",
+        smokes: [
+            { title: "A site – CT smoke", desc: "CT-t blokkolja az A-ra való push-nál.", tag: "A Site", videoId: "" },
+            { title: "A site – Jungle smoke", desc: "Jungle angle lefedése.", tag: "A Site", videoId: "" },
+            { title: "Mid – Window smoke", desc: "Window sniper-t blokkolja.", tag: "Mid", videoId: "" },
+            { title: "Mid – Connector smoke", desc: "Connectort lefedő mid kontroll smoke.", tag: "Mid", videoId: "" },
+            { title: "B site – Van smoke", desc: "Van mögötti angle blokkolása.", tag: "B Site", videoId: "" }
+        ],
+        flashes: [
+            { title: "A short – Pop-flash", desc: "Short-on áttörő azonnali pop-flash.", tag: "A Site", videoId: "" },
+            { title: "B apps – Team flash", desc: "B apps-ból indított csapat flash.", tag: "B Site", videoId: "" }
+        ],
+        molotovs: [
+            { title: "A site – Back molotov", desc: "A site back-et cleareli.", tag: "A Site", videoId: "" },
+            { title: "B site – Platform molotov", desc: "Platform mögötti pozíciót zárja.", tag: "B Site", videoId: "" }
+        ],
+        grenades: [
+            { title: "Mid – Window HE", desc: "Window-on lévő sniper ellen.", tag: "Mid", videoId: "" }
+        ]
+    },
+    dust2: {
+        name: "Dust2",
+        img: "images/dust2.jpg",
+        smokes: [
+            { title: "A site – CT smoke", desc: "CT spawn-t blokkolja long-ról.", tag: "A Site", videoId: "" },
+            { title: "A site – Cross smoke", desc: "Long corner-t lefedő cross smoke.", tag: "A Site", videoId: "" },
+            { title: "B site – Window smoke", desc: "Window room-ot blokkolja a B push-nál.", tag: "B Site", videoId: "" },
+            { title: "Mid – Xbox smoke", desc: "Xbox-ot blokkolja a mid kontrollhoz.", tag: "Mid", videoId: "" }
+        ],
+        flashes: [
+            { title: "Long – Pop-flash", desc: "Long doors-on áttörő pop-flash.", tag: "A Site", videoId: "" },
+            { title: "B tunnels – Team flash", desc: "Tunnels-ből indított csapat flash.", tag: "B Site", videoId: "" }
+        ],
+        molotovs: [
+            { title: "A site – Goose molotov", desc: "Goose corner-t cleareli.", tag: "A Site", videoId: "" },
+            { title: "B site – Back molotov", desc: "B back-et zárja le a beépítéshez.", tag: "B Site", videoId: "" }
+        ],
+        grenades: [
+            { title: "Long – HE grenade", desc: "Long corner-en lévő ellenfeleknek.", tag: "A Site", videoId: "" }
+        ]
+    },
+    inferno: {
+        name: "Inferno",
+        img: "images/inferno.jpg",
+        smokes: [
+            { title: "A site – CT smoke", desc: "CT-t blokkolja az A-ra való execute-nál.", tag: "A Site", videoId: "" },
+            { title: "Banana – Top banana smoke", desc: "Top of banana-t blokkolja.", tag: "B Site", videoId: "" },
+            { title: "Banana – T side smoke", desc: "T oldali banana nyomáshoz.", tag: "B Site", videoId: "" },
+            { title: "Mid – Arch smoke", desc: "Arch-t blokkolja a mid push-hoz.", tag: "Mid", videoId: "" }
+        ],
+        flashes: [
+            { title: "A site – Aps pop-flash", desc: "Aps angle-t vaktól pop-flash.", tag: "A Site", videoId: "" },
+            { title: "Banana – Team flash", desc: "Banana push csapat flash.", tag: "B Site", videoId: "" }
+        ],
+        molotovs: [
+            { title: "A site – Aps molotov", desc: "Aps mögötti pozíciót cleareli.", tag: "A Site", videoId: "" },
+            { title: "B site – Back molotov", desc: "B site back-et zárja.", tag: "B Site", videoId: "" }
+        ],
+        grenades: [
+            { title: "Banana – HE grenade", desc: "Banana choke-on lévők ellen.", tag: "B Site", videoId: "" }
+        ]
+    },
+    overpass: {
+        name: "Overpass",
+        img: "images/overpass.jpg",
+        smokes: [
+            { title: "A site – Short smoke", desc: "Short angle-t blokkolja az A push-nál.", tag: "A Site", videoId: "" },
+            { title: "B site – CT smoke", desc: "CT-t blokkolja a B beépítésnél.", tag: "B Site", videoId: "" },
+            { title: "Mid – Fountain smoke", desc: "Fountain-t blokkolja mid kontrollhoz.", tag: "Mid", videoId: "" }
+        ],
+        flashes: [
+            { title: "A long – Pop-flash", desc: "Long A-ból indított pop-flash.", tag: "A Site", videoId: "" },
+            { title: "B – Team flash", desc: "B push csapat flash.", tag: "B Site", videoId: "" }
+        ],
+        molotovs: [
+            { title: "A site – Molotov", desc: "A site corner clearance.", tag: "A Site", videoId: "" }
+        ],
+        grenades: [
+            { title: "Mid – HE grenade", desc: "Mid tunnel choke ellen.", tag: "Mid", videoId: "" }
+        ]
+    },
+    nuke: {
+        name: "Nuke",
+        img: "images/nuke.jpg",
+        smokes: [
+            { title: "A site – Ramp smoke", desc: "Ramp-ot blokkolja az A site-on.", tag: "A (Upper)", videoId: "" },
+            { title: "A site – Heaven smoke", desc: "Heaven angle-t lefedi.", tag: "A (Upper)", videoId: "" },
+            { title: "B site – Silo smoke", desc: "Silo-t blokkolja a B beépítésnél.", tag: "B (Lower)", videoId: "" },
+            { title: "Outside – Lobby smoke", desc: "Lobby-t lefedi az outside push-nál.", tag: "Outside", videoId: "" }
+        ],
+        flashes: [
+            { title: "Ramp – Pop-flash", desc: "Ramp-on áttörő pop-flash.", tag: "A (Upper)", videoId: "" },
+            { title: "B lower – Team flash", desc: "Lower B push csapat flash.", tag: "B (Lower)", videoId: "" }
+        ],
+        molotovs: [
+            { title: "A site – Back molotov", desc: "A site back corner clearance.", tag: "A (Upper)", videoId: "" },
+            { title: "B site – Silo molotov", desc: "Silo alatti pozíciót zárja.", tag: "B (Lower)", videoId: "" }
+        ],
+        grenades: [
+            { title: "Ramp – HE grenade", desc: "Ramp-on lévő CT ellen.", tag: "A (Upper)", videoId: "" }
+        ]
+    },
+    train: {
+        name: "Train",
+        img: "images/train.jpg",
+        smokes: [
+            { title: "A site – CT smoke", desc: "CT-t blokkolja az A execute-nál.", tag: "A Site", videoId: "" },
+            { title: "A site – Ivy smoke", desc: "Ivy angle-t lefedi.", tag: "A Site", videoId: "" },
+            { title: "B site – Ladder smoke", desc: "Ladder room-ot blokkolja.", tag: "B Site", videoId: "" }
+        ],
+        flashes: [
+            { title: "A main – Pop-flash", desc: "A main-en áttörő pop-flash.", tag: "A Site", videoId: "" },
+            { title: "B – Team flash", desc: "B push csapat flash.", tag: "B Site", videoId: "" }
+        ],
+        molotovs: [
+            { title: "A site – Train molotov", desc: "Vonat mögötti corner clearance.", tag: "A Site", videoId: "" }
+        ],
+        grenades: [
+            { title: "Yard – HE grenade", desc: "Yard közepén lévő ellenfeleknek.", tag: "Yard", videoId: "" }
+        ]
+    },
+    vertigo: {
+        name: "Vertigo",
+        img: "images/vertigo.jpg",
+        smokes: [
+            { title: "A site – CT smoke", desc: "CT-t blokkolja az A push-nál.", tag: "A Site", videoId: "" },
+            { title: "A site – Scaffold smoke", desc: "Scaffold angle-t lefedi.", tag: "A Site", videoId: "" },
+            { title: "B site – Mid smoke", desc: "Mid-et blokkolja a B execute-nál.", tag: "B Site", videoId: "" }
+        ],
+        flashes: [
+            { title: "A ramp – Pop-flash", desc: "Ramp-on áttörő pop-flash.", tag: "A Site", videoId: "" },
+            { title: "B – Team flash", desc: "B push csapat flash.", tag: "B Site", videoId: "" }
+        ],
+        molotovs: [
+            { title: "A site – Corner molotov", desc: "A site sarok clearance.", tag: "A Site", videoId: "" }
+        ],
+        grenades: [
+            { title: "Mid – HE grenade", desc: "Mid choke ellen.", tag: "Mid", videoId: "" }
+        ]
+    }
+};
+
+/* ===== INIT ===== */
+const params = new URLSearchParams(window.location.search);
+const mapKey = (params.get("map") || "").toLowerCase();
+const map = mapData[mapKey];
+
+if (!map) {
+    document.body.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:16px;">
+        <div style="font-size:48px;">🗺️</div>
+        <h2>Ismeretlen map</h2>
+        <a href="index.html" style="color:#2f80ff;">← Vissza a főoldalra</a>
+    </div>`;
+} else {
+    document.getElementById("mapBadge").textContent = map.name;
+    document.getElementById("mapTitle").textContent = map.name + " – Utility Guide";
+    document.getElementById("mapHero").style.backgroundImage = `url('${map.img}')`;
+    document.title = `CS2 Guide – ${map.name} Utility`;
+
+    renderGrid("smokes", "grid-smokes");
+    renderGrid("flashes", "grid-flashes");
+    renderGrid("molotovs", "grid-molotovs");
+    renderGrid("grenades", "grid-grenades");
+}
+
+function renderGrid(type, gridId) {
+    const grid = document.getElementById(gridId);
+    const items = map[type] || [];
+
+    if (!items.length) {
+        grid.innerHTML = `<div class="empty-state"><div class="icon">🚧</div><p>Hamarosan érkezik tartalom.</p></div>`;
+        return;
+    }
+
+    items.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "util-card";
+
+        const hasVideo = item.videoId && item.videoId.length > 0;
+
+        card.innerHTML = `
+            <div class="util-card-thumb">
+                ${hasVideo
+                    ? `<iframe src="https://www.youtube.com/embed/${item.videoId}" loading="lazy" allowfullscreen></iframe>`
+                    : `<div class="util-card-thumb-placeholder">📹 Videó hamarosan</div>`
+                }
+                ${hasVideo ? `<div class="play-overlay"><div class="play-icon">▶</div></div>` : ""}
+            </div>
+            <div class="util-card-body">
+                <div class="util-card-tag">${item.tag}</div>
+                <div class="util-card-title">${item.title}</div>
+                <div class="util-card-desc">${item.desc}</div>
+            </div>
+        `;
+
+        if (hasVideo) {
+            card.addEventListener("click", () => openModal(item.videoId));
+        }
+
+        grid.appendChild(card);
+    });
+}
+
+/* ===== TABS ===== */
+document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+    });
+});
+
+/* ===== VIDEO MODAL ===== */
+const videoModal = document.getElementById("videoModal");
+const videoFrame = document.getElementById("videoFrame");
+
+function openModal(videoId) {
+    videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    videoModal.classList.add("active");
+}
+
+document.getElementById("closeVideo").addEventListener("click", closeModal);
+document.getElementById("modalBackdrop").addEventListener("click", closeModal);
+
+function closeModal() {
+    videoModal.classList.remove("active");
+    videoFrame.src = "";
+}
+
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+/* ===== DARK MODE ===== */
+const themeBtn = document.getElementById("themeToggleUtil");
+
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeBtn.textContent = "☀️";
+}
+
+themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    themeBtn.textContent = isDark ? "☀️" : "🌙";
+});
+</script>
+</body>
+</html>
