@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogi információk – Gamer Zone</title>
+    <link rel="stylesheet" href="legal.css">
+</head>
+<body>
+    <button id="themeToggle" class="theme-btn">🌙</button>
+<main class="legal-container">
+
+    <h1>Jogi információk</h1>
+
+    <section class="legal-card">
+        <h2>Rólunk</h2>
+        <p>
+            A Gamer Zone egy modern platform, ahol játékokkal, videókkal és streamekkel kapcsolatos tartalmakat találsz.
+        </p>
+    </section>
+
+    <section class="legal-card">
+        <h2>Felhasználási feltételek</h2>
+        <p>
+            Az oldal használatával elfogadod, hogy a tartalom tájékoztató jellegű.
+            Külső oldalakért nem vállalunk felelősséget.
+        </p>
+    </section>
+
+    <section class="legal-card">
+        <h2>Adatvédelem</h2>
+        <p>
+            Nem gyűjtünk személyes adatokat. Az oldal működéséhez szükséges alap cookie-k előfordulhatnak.
+        </p>
+    </section>
+
+    <section class="legal-card">
+        <h2>Szerzői jog</h2>
+        <p>
+            © 2026 Gamer Zone — Minden jog fenntartva.
+        </p>
+    </section>
+
+    <a href="index.html" class="back-btn">← Vissza a főoldalra</a>
+
+</main>
+<script>
+const themeToggle = document.getElementById("themeToggle");
+
+function updateIcon() {
+    if (document.body.classList.contains("light-mode")) {
+        themeToggle.textContent = "🌙";
+    } else {
+        themeToggle.textContent = "☀️";
+    }
+}
+
+// load saved theme
+if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+}
+
+updateIcon();
+
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+
+    localStorage.setItem(
+        "theme",
+        document.body.classList.contains("light-mode") ? "light" : "dark"
+    );
+
+    updateIcon();
+});
+</script>
+</body>
+</html>
