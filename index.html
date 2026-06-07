@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamer Zone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- COOKIE MODAL -->
+<div id="cookieModal" class="cookie-modal">
+    <div class="cookie-modal-box">
+        <div class="cookie-icon">🍪</div>
+        <h2>Cookie beállítások</h2>
+        <p>Az oldal megfelelő működéséhez cookie-kat használunk. Kérjük válassz az alábbi lehetőségek közül.</p>
+        <div class="cookie-actions">
+            <button id="cookieAcceptAll" class="cookie-btn cookie-btn-primary">Összes elfogadása</button>
+            <button id="cookieAcceptNecessary" class="cookie-btn cookie-btn-secondary">Csak szükségesek</button>
+        </div>
+        <a href="legal.html" class="cookie-legal-link">Adatvédelmi tájékoztató</a>
+    </div>
+</div>
+
+<header>
+   <div class="logo" id="homeBtn">
+    <img src="images/7f5c92b2-23b0-4019-bd8c-41b9c2da1fce.png" alt="BMA" class="logo-img">
+</div>
+
+    <nav>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Keresés..." autocomplete="off">
+    </div>
+
+    <div class="subscribe-container">
+        <input type="email" id="subscribeInput" placeholder="Email cím..." autocomplete="off">
+        <button id="subscribeBtn" class="subscribe-btn">Feliratkozás</button>
+    </div>
+
+        <button id="themeToggle" class="menu-btn" aria-label="Dark mode">🌙</button>
+        <button class="menu-btn hamburger" id="menuBtn" aria-label="Menü">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="dropdown" id="dropdown">
+    <div data-section="Beállítások">Beállítások</div>
+    <div data-section="Videók, streamek">Videók, streamek</div>
+    <div data-page="webshop.html" id="shopMenuBtn">🛒 Webshopunk</div>
+    <div data-page="lan.html" id="lanMenuBtn">🖥️ LAN Party</div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="top-bar">
+        <div>
+            <h1 class="title" id="brandTitle">Gamer Zone</h1>
+            <p class="subtitle" id="brandDesc">
+                Játékok, videók, streamek
+            </p>
+        </div>
+
+        <div class="layout-switch">
+            <button data-cols="3">Streamek</button>
+            <button data-cols="4" id="trukkos">Streamek, videók</button>
+        </div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+</main>
+
+
+<footer class="footer">
+   <a href="legal.html" class="copyright-badge">
+    © 2026 Gamer Zone — All Rights Reserved
+</a>
+</footer>
+
+<div id="videoModal" class="video-modal">
+    <div class="video-modal-backdrop"></div>
+    <div class="video-modal-content">
+        <button id="closeVideo" class="close-video" aria-label="Bezárás">✕</button>
+        <iframe id="videoFrame" src="" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
