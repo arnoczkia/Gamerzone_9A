@@ -6,6 +6,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- COOKIE MODAL -->
+<div id="cookieModal" class="cookie-modal">
+    <div class="cookie-modal-box">
+        <div class="cookie-icon">🍪</div>
+        <h2>Cookie beállítások</h2>
+        <p>Az oldal megfelelő működéséhez cookie-kat használunk. Kérjük válassz az alábbi lehetőségek közül.</p>
+        <div class="cookie-actions">
+            <button id="cookieAcceptAll" class="cookie-btn cookie-btn-primary">Összes elfogadása</button>
+            <button id="cookieAcceptNecessary" class="cookie-btn cookie-btn-secondary">Csak szükségesek</button>
+        </div>
+        <a href="legal.html" class="cookie-legal-link">Adatvédelmi tájékoztató</a>
+    </div>
+</div>
 
 <header>
    <div class="logo" id="homeBtn">
@@ -18,6 +31,11 @@
         <input type="text" id="searchInput" placeholder="Keresés..." autocomplete="off">
     </div>
 
+    <div class="subscribe-container">
+        <input type="email" id="subscribeInput" placeholder="Email cím..." autocomplete="off">
+        <button id="subscribeBtn" class="subscribe-btn">Feliratkozás</button>
+    </div>
+
         <button id="themeToggle" class="menu-btn" aria-label="Dark mode">🌙</button>
         <button class="menu-btn hamburger" id="menuBtn" aria-label="Menü">
             <span></span>
@@ -26,10 +44,11 @@
         </button>
 
         <div class="dropdown" id="dropdown">
-    <div data-section="Játékok">Játékok</div>
     <div data-section="Beállítások">Beállítások</div>
-     <div data-section="Videók, streamek">Videók, streamek</div>
-         </div>
+    <div data-section="Videók, streamek">Videók, streamek</div>
+    <div data-page="webshop.html" id="shopMenuBtn">🛒 Webshopunk</div>
+    <div data-page="lan.html" id="lanMenuBtn">🖥️ LAN Party</div>
+        </div>
     </nav>
 </header>
 
@@ -44,7 +63,7 @@
 
         <div class="layout-switch">
             <button data-cols="3">Streamek</button>
-            <button data-cols="4" id="trukkos">Streamek, videok</button>
+            <button data-cols="4" id="trukkos">Streamek, videók</button>
         </div>
     </div>
 

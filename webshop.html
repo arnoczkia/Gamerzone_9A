@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webshop – Gamer Zone</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="webshop.css">
+</head>
+<body>
+
+<!-- COOKIE MODAL -->
+<div id="cookieModal" class="cookie-modal">
+    <div class="cookie-modal-box">
+        <div class="cookie-icon">🍪</div>
+        <h2>Cookie beállítások</h2>
+        <p>Az oldal megfelelő működéséhez cookie-kat használunk. Kérjük válassz az alábbi lehetőségek közül.</p>
+        <div class="cookie-actions">
+            <button id="cookieAcceptAll" class="cookie-btn cookie-btn-primary">Összes elfogadása</button>
+            <button id="cookieAcceptNecessary" class="cookie-btn cookie-btn-secondary">Csak szükségesek</button>
+        </div>
+        <a href="legal.html" class="cookie-legal-link">Adatvédelmi tájékoztató</a>
+    </div>
+</div>
+
+<header>
+    <div class="logo" id="homeBtn">
+        <img src="images/7f5c92b2-23b0-4019-bd8c-41b9c2da1fce.png" alt="BMA" class="logo-img">
+    </div>
+    <nav>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Keresés..." autocomplete="off">
+        </div>
+        <div class="subscribe-container">
+            <input type="email" id="subscribeInput" placeholder="Email cím..." autocomplete="off">
+            <button id="subscribeBtn" class="subscribe-btn">Feliratkozás</button>
+        </div>
+        <button id="themeToggle" class="menu-btn" aria-label="Dark mode">🌙</button>
+        <button class="menu-btn hamburger" id="menuBtn" aria-label="Menü">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="dropdown" id="dropdown">
+            <div data-page="index.html">Főoldal</div>
+            <div data-page="webshop.html">🛒 Webshopunk</div>
+            <div data-page="lan.html" id="lanMenuBtn">🖥️ LAN Party</div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <!-- HERO BANNER -->
+    <div class="shop-hero">
+        <div class="shop-hero-content">
+            <span class="shop-hero-tag">🎮 Gamer Zone Store</span>
+            <h1>Prémium gaming felszerelés</h1>
+            <p>A legjobb egerek, billentyűzetek, fejhallgatók és egyebek — profi játékosoknak.</p>
+        </div>
+        <div class="shop-hero-glow"></div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="shop-filter-bar">
+        <button class="filter-btn active" data-cat="all">Összes</button>
+        <button class="filter-btn" data-cat="mouse">🖱️ Egerek</button>
+        <button class="filter-btn" data-cat="keyboard">⌨️ Billentyűzetek</button>
+        <button class="filter-btn" data-cat="headset">🎧 Fejhallgatók</button>
+        <button class="filter-btn" data-cat="chair">🪑 Székek</button>
+        <button class="filter-btn" data-cat="monitor">🖥️ Monitorok</button>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="shop-grid" id="shopGrid"></div>
+
+    <!-- CART SUMMARY TOAST -->
+    <div id="cartToast" class="cart-toast"></div>
+</main>
+
+<!-- CART SIDEBAR -->
+<div id="cartOverlay" class="cart-overlay"></div>
+<aside id="cartSidebar" class="cart-sidebar">
+    <div class="cart-header">
+        <h2>🛒 Kosár</h2>
+        <button id="closeCart" class="cart-close">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+        <div class="cart-total-row">
+            <span>Összesen:</span>
+            <span id="cartTotal" class="cart-total-price">0 Ft</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn">Megrendelés →</button>
+    </div>
+</aside>
+
+<!-- CART FAB -->
+<button class="cart-fab" id="cartFab">
+    🛒
+    <span class="cart-badge" id="cartBadge">0</span>
+</button>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div id="productModal" class="product-modal">
+    <div class="product-modal-backdrop" id="productModalBackdrop"></div>
+    <div class="product-modal-box" id="productModalBox">
+        <button class="product-modal-close" id="closeProductModal">✕</button>
+        <div id="productModalContent"></div>
+    </div>
+</div>
+
+<footer class="footer">
+    <a href="legal.html" class="copyright-badge">© 2026 Gamer Zone — All Rights Reserved</a>
+</footer>
+
+<script src="webshop.js"></script>
+</body>
+</html>

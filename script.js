@@ -9,77 +9,26 @@ const homeBtn = document.getElementById("homeBtn");
 const themeToggle = document.getElementById("themeToggle");
 const layoutButtons = document.querySelectorAll(".layout-switch button");
 const layoutSwitch = document.querySelector(".layout-switch");
+const searchInput = document.getElementById("searchInput");
 
-/* ============================= */
-/* ===== MAPOK ===== */
-const maps = {
-    Anubis: {
-        h3: "",
-        p: "",
-        img: "images/",
-        utilityPage: "utility.html?map=anubis"
-    },
 
-    Ancient: {
-        h3: "",
-        p: "",
-        img: "images/",
-        utilityPage: "utility.html?map=ancient"
-    },
-
-    Mirage: {
-        h3: "",
-        p: "",
-        img: "images/",
-        utilityPage: "utility.html?map=mirage"
-    },
-
-    Dust2: {
-        h3: "",
-        p: "",
-        img: "images/",
-        utilityPage: "utility.html?map=dust2"
-    },
-
-    Inferno: {
-        h3: "",
-        p: "",
-        img: "images/",
-        utilityPage: "utility.html?map=inferno"
-    },
-
-    Overpass: {
-        h3: "",
-        p: "",
-        img: "images/",
-        utilityPage: "utility.html?map=overpass"
-    },
-
-    Nuke: {
-        h3: "",
-        p: "",
-        img: "images/",
-        utilityPage: "utility.html?map=nuke"
-    },
-
-    Train: {
-        h3: "",
-        p: "",
-        img: "images/",
-        utilityPage: "utility.html?map=train"
-    },
-
-    Vertigo: {
-        h3: "",
-        p: "",
-        img: "images/",
-        utilityPage: "utility.html?map=vertigo"
-    }
-};
 
 
 /* ============================= */
 /* ===== SECTIONS ===== */
+
+const videoItems = [
+    { h3: "CS2 – Pro tippek", p: "Top taktikák profi játékosoktól.", videos: ["https://www.youtube.com/embed/VUIpmgQYOS0?si=Y9l-WbrVhvcS0Ozi"], img: "images/cs2.jpg" },
+    { h3: "Valorant – Aim guide", p: "Célzástechnika és crosshair beállítás.", videos: ["https://www.youtube.com/embed/BBX-8MzmLsk?si=sVfnd7c9kYCqZ-F2"], img: "images/valorant.jpg" },
+    { h3: "Fortnite – Building", p: "Gyors építési technikák kezdőknek.", videos: ["https://www.youtube.com/embed/JxEwFG3ATJU?si=I66XNm91oTVEoTds"], img: "images/FN.jpg" }
+];
+
+const streamItems = [
+    { h3: "s1mple", p: "NaVi legendás AWP-ese.", link: "https://www.twitch.tv/s1mple", img: "images/cs2.jpg" },
+    { h3: "shroud", p: "Volt CS-pro, most full-time streamer.", link: "https://www.twitch.tv/shroud", img: "images/cs2.jpg" },
+    { h3: "Ninja", p: "Fortnite ikon, Twitch sztár.", link: "https://www.twitch.tv/ninja", img: "images/FN.jpg" }
+];
+
 const sections = {
     Home: [
         { h3: "Fortnite", p: "Egy építkezős battle royale túlélőjáték.", link: "https://www.epicgames.com/fortnite", img: "images/FN.jpg" },
@@ -87,29 +36,19 @@ const sections = {
         { h3: "Call of Duty: Modern Warfare II", p: "Gyors tempójú modern katonai FPS.", link: "https://www.callofduty.com/", img: "images/CoD.jpg" },
         { h3: "Valorant", p: "Taktikai FPS egyedi képességekkel.", link: "https://playvalorant.com/en-gb/?utm_medium=card2%2Bplayvalorant.com&utm_source=riotbar", img: "images/valorant.jpg" }
     ],
-    Játékok: [
-        { h3: "Crosshair", p: "Letisztult crosshair ajánlások.", img: "images/crosshair.jpg" },
-        { h3: "Spray control", p: "AK-47 és M4 recoil gyakorlás.", img: "images/spray.gif" }
-    ],
     Beállítások: [
-        { h3: "Grafika", p: "FPS-optimalizált CS2 beállítások.", img: "images/graphics.jpg" },
-        { h3: "Egér", p: "eDPI, sensitivity és polling rate.", img: "images/mouse.jpg" }
-    ]
+        { h3: "Grafika", p: "FPS-optimalizált CS2 beállítások.", img: "images/graphics.jpg", link: "https://prosettings.net/guides/cs2-options/", },
+        { h3: "Egér", p: "Prémium gaming egerek a gyorsabb reakciókért.", img: "images/mouse.jpg", link: "https://prosettings.net/guides/cs2-mouse/", }
+    ],
+    "Videók, streamek": [...streamItems, ...videoItems]
 };
 
-/* ============================= */
-/* ===== ESSENTIAL LISTÁK ===== */
-const activePool = [
-    maps.Anubis, maps.Ancient, maps.Mirage, maps.Dust2,
-    maps.Inferno, maps.Overpass, maps.Nuke
-];
 
-const allMaps = [...activePool, maps.Train, maps.Vertigo];
 
 /* ============================= */
 /* ===== GRID STATE ===== */
 function resetGrid() {
-    grid.classList.remove("essential", "cols-3", "cols-4");
+    grid.classList.remove("essential", "cols-2", "cols-3", "cols-4");
 }
 
 function setDefaultGrid() {
@@ -132,27 +71,26 @@ function createCard(item) {
         </div>
     `;
 
-    // 1. utility oldalak (maps)
-    if (item.utilityPage) {
-        card.classList.add("clickable");
-        card.addEventListener("click", () => {
-            window.open(item.utilityPage, "_blank");
-        });
-    }
-
-    // 2. videók
-    else if (item.videos && item.videos.length) {
+    // 1. videók
+    if (item.videos && item.videos.length) {
         card.classList.add("clickable");
         card.addEventListener("click", () => openVideoModal(item));
     }
 
-    // 3. HOME / külső linkek
+    // 2. HOME / külső linkek
     else if (item.link) {
         card.classList.add("clickable");
         card.addEventListener("click", () => {
             window.open(item.link, "_blank");
         });
     }
+
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        closeVideoModal();
+    }
+});
 
     return card;
 }
@@ -195,6 +133,12 @@ menuBtn.addEventListener("click", () => {
 
 dropdown.querySelectorAll("div").forEach(item => {
     item.addEventListener("click", () => {
+        // External page navigation
+        if (item.dataset.page) {
+            window.location.href = item.dataset.page;
+            return;
+        }
+
         const section = item.dataset.section;
 
         title.textContent = section;
@@ -209,11 +153,11 @@ dropdown.querySelectorAll("div").forEach(item => {
 
         if (section === "Videók, streamek") {
             resetGrid();
-            grid.classList.add("essential", "cols-3");
+            grid.classList.add("cols-3");
             layoutSwitch.style.display = "flex";
             layoutButtons[0].classList.add("active");
             layoutButtons[1].classList.remove("active");
-            renderCards(activePool);
+            renderCards(streamItems);
             return;
         }
 
@@ -236,15 +180,16 @@ homeBtn.addEventListener("click", () => {
 /* ===== LAYOUT SWITCH ===== */
 layoutButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-        if (!grid.classList.contains("essential")) return;
+        if (layoutSwitch.style.display === "none") return;
 
         layoutButtons.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
         resetGrid();
-        grid.classList.add("essential", `cols-${btn.dataset.cols}`);
+        grid.classList.add("cols-3");
 
-        renderCards(btn.dataset.cols === "4" ? allMaps : activePool);
+        // data-cols="3" → csak streamek, data-cols="4" → streamek + videók
+        renderCards(btn.dataset.cols === "4" ? [...streamItems, ...videoItems] : streamItems);
     });
 });
 
@@ -313,20 +258,81 @@ searchInput.addEventListener("input", (e) => {
         });
     });
 
-    
-    Object.values(maps).forEach(item => {
-        if (
-            item.h3.toLowerCase().includes(query) ||
-            item.p.toLowerCase().includes(query)
-        ) {
-            results.push(item);
-        }
-    });
-
-    
     title.textContent = "Keresési találatok";
     desc.textContent = `"${query}" keresés eredményei`;
 
     renderCards(results);
+});
+
+/* ============================= */
+/* ===== COOKIE MODAL ===== */
+/* ============================= */
+
+const cookieModal = document.getElementById("cookieModal");
+const cookieAcceptAll = document.getElementById("cookieAcceptAll");
+const cookieAcceptNecessary = document.getElementById("cookieAcceptNecessary");
+
+function closeCookieModal() {
+    cookieModal.classList.add("hidden");
+    document.body.style.overflow = "";
+}
+
+// Ha még nem döntött → modal megjelenítése
+if (!localStorage.getItem("cookieConsent")) {
+    document.body.style.overflow = "hidden";
+} else {
+    cookieModal.classList.add("hidden");
+}
+
+cookieAcceptAll.addEventListener("click", () => {
+    localStorage.setItem("cookieConsent", "all");
+    closeCookieModal();
+});
+
+cookieAcceptNecessary.addEventListener("click", () => {
+    localStorage.setItem("cookieConsent", "necessary");
+    closeCookieModal();
+});
+
+/* ============================= */
+/* ===== FELIRATKOZÁS ===== */
+/* ============================= */
+
+const subscribeBtn = document.getElementById("subscribeBtn");
+const subscribeInput = document.getElementById("subscribeInput");
+
+// Toast elem létrehozása
+const toast = document.createElement("div");
+toast.className = "subscribe-toast";
+document.body.appendChild(toast);
+
+function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+function handleSubscribe() {
+    const email = subscribeInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email) {
+        showToast("⚠️ Kérjük add meg az email címed!");
+        return;
+    }
+
+    if (!emailRegex.test(email)) {
+        showToast("⚠️ Érvénytelen email cím!");
+        return;
+    }
+
+    showToast("✅ Sikeresen feliratkoztál!");
+    subscribeInput.value = "";
+}
+
+subscribeBtn.addEventListener("click", handleSubscribe);
+
+subscribeInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") handleSubscribe();
 });
 

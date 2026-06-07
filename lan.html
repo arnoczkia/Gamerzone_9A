@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAN Party – Gamer Zone</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="lan.css">
+</head>
+<body>
+
+<!-- COOKIE MODAL -->
+<div id="cookieModal" class="cookie-modal">
+    <div class="cookie-modal-box">
+        <div class="cookie-icon">🍪</div>
+        <h2>Cookie beállítások</h2>
+        <p>Az oldal megfelelő működéséhez cookie-kat használunk. Kérjük válassz az alábbi lehetőségek közül.</p>
+        <div class="cookie-actions">
+            <button id="cookieAcceptAll" class="cookie-btn cookie-btn-primary">Összes elfogadása</button>
+            <button id="cookieAcceptNecessary" class="cookie-btn cookie-btn-secondary">Csak szükségesek</button>
+        </div>
+        <a href="legal.html" class="cookie-legal-link">Adatvédelmi tájékoztató</a>
+    </div>
+</div>
+
+<header>
+    <div class="logo" id="homeBtn">
+        <img src="images/7f5c92b2-23b0-4019-bd8c-41b9c2da1fce.png" alt="BMA" class="logo-img">
+    </div>
+    <nav>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Keresés..." autocomplete="off">
+        </div>
+        <div class="subscribe-container">
+            <input type="email" id="subscribeInput" placeholder="Email cím..." autocomplete="off">
+            <button id="subscribeBtn" class="subscribe-btn">Feliratkozás</button>
+        </div>
+        <button id="themeToggle" class="menu-btn" aria-label="Dark mode">🌙</button>
+        <button class="menu-btn hamburger" id="menuBtn" aria-label="Menü">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="dropdown" id="dropdown">
+            <div data-page="index.html">Főoldal</div>
+            <div data-page="webshop.html" id="shopMenuBtn">🛒 Webshopunk</div>
+            <div data-page="lan.html" id="lanMenuBtn">🖥️ LAN Party</div>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <!-- HERO -->
+    <div class="lan-hero">
+        <div class="lan-hero-bg"></div>
+        <div class="lan-hero-content">
+            <span class="lan-hero-tag">🖥️ Gamer Zone Events</span>
+            <h1>LAN Party<br><span class="lan-hero-accent">2026</span></h1>
+            <p>Találkozz a közösséggel, versenyezz élőben, nyerj díjakat — a legnagyobb hazai gaming események egy helyen.</p>
+            <div class="lan-hero-stats">
+                <div class="lan-stat"><span class="lan-stat-num" id="statEvents">8</span><span class="lan-stat-label">Esemény</span></div>
+                <div class="lan-stat"><span class="lan-stat-num" id="statPlayers">1200+</span><span class="lan-stat-label">Játékos</span></div>
+                <div class="lan-stat"><span class="lan-stat-num" id="statPrize">850K Ft</span><span class="lan-stat-label">Díjalap</span></div>
+            </div>
+        </div>
+        <div class="lan-hero-glow"></div>
+        <div class="lan-hero-glow lan-hero-glow2"></div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="lan-filter-bar">
+        <button class="lan-filter-btn active" data-filter="all">Összes</button>
+        <button class="lan-filter-btn" data-filter="upcoming">🟢 Közelgő</button>
+        <button class="lan-filter-btn" data-filter="open">🎟️ Nyitott</button>
+        <button class="lan-filter-btn" data-filter="past">📁 Lezárt</button>
+    </div>
+
+    <!-- EVENTS GRID -->
+    <div class="lan-grid" id="lanGrid"></div>
+
+</main>
+
+<!-- REGISTRATION MODAL -->
+<div id="regModal" class="reg-modal">
+    <div class="reg-modal-backdrop" id="regModalBackdrop"></div>
+    <div class="reg-modal-box">
+        <button class="reg-modal-close" id="closeRegModal">✕</button>
+        <div id="regModalContent"></div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div id="lanToast" class="lan-toast"></div>
+
+<footer class="footer">
+    <a href="legal.html" class="copyright-badge">© 2026 Gamer Zone — All Rights Reserved</a>
+</footer>
+
+<script src="lan.js"></script>
+</body>
+</html>
